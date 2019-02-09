@@ -1,8 +1,9 @@
 %close all;
 clear all;
 
-params = paramManager(1);
+params = paramManager(2);
 %1 for liptracking2
+%2 for liptracking3
 
 load('template2.mat');
 i = 1;
@@ -17,12 +18,16 @@ gs = my_gaussian_kernel(10,50);
 
 gs1 = my_gaussian_kernel(5,5);
 
-img = imread('test.jpg');
-[BW,maskedRGBImage] = createMask(img);
+img = imread([params.directory '/' params.directory '_0',num2str(params.startFrame),'.jpg']);
+
+
+
+[BW,maskedRGBImage] = createMask(img,params);
 
 
 BW = conv2(double(BW),gs);
 BW(BW<0.85) = 0;
+imshow(maskedRGBImage)
 curv = getElps(BW,pt_num,params);
 
 origin = img;
@@ -36,10 +41,12 @@ for i = 1:pt_num
     A = [A; circshift(one_row, [0, i-3])];
 end
 
-for i = 1302:1910
-    str = ['liptracking2/liptracking2_0',num2str(i),'.jpg'];
+for i = params.startFrame:params.endFrame
+    str = [params.directory '/' params.directory '_0',num2str(i),'.jpg'];
     img = imread(str);
-    [BW,maskedRGBImage] = createMask(img);
+    
+
+    [BW,maskedRGBImage] = createMask(img,params);
 
     BW = conv2(double(BW),gs);
     BW(BW<params.intensity_thres) = 0;
