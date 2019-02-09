@@ -33,6 +33,17 @@ switch case_index
         
     case 3
         params.directory = 'liptracking4';
+        params.startFrame = 100;
+        params.endFrame = 338;
+        params.alpha = 3; % (3)
+        params.beta = 2; % (3)
+        params.omega = 12;
+        params.eta = 30;
+        params.elpk = 1.6;
+        params.l_clps = 0.9;
+        params.c.min = [0.8528,0.26,0.67];
+        params.c.max = [0.9967,0.62,0.992];
+        params.intensity_thres = 0.75;
         
 end
 

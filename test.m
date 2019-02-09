@@ -1,7 +1,9 @@
 %close all;
 clear all;
 
-params = paramManager(2);
+test_case_idx = 3;
+
+params = paramManager(test_case_idx);
 %1 for liptracking2
 %2 for liptracking3
 
@@ -17,12 +19,19 @@ pt_num = 50;
 gs = my_gaussian_kernel(10,50);
 
 gs1 = my_gaussian_kernel(5,5);
+    if(test_case_idx==3)
+        img = imread([params.directory '/' params.directory '_00',num2str(params.startFrame),'.jpg']);
 
-img = imread([params.directory '/' params.directory '_0',num2str(params.startFrame),'.jpg']);
+    else
+        img = imread([params.directory '/' params.directory '_0',num2str(params.startFrame),'.jpg']);
+
+    end
 
 
 
 [BW,maskedRGBImage] = createMask(img,params);
+
+
 
 
 BW = conv2(double(BW),gs);
@@ -42,7 +51,12 @@ for i = 1:pt_num
 end
 
 for i = params.startFrame:params.endFrame
-    str = [params.directory '/' params.directory '_0',num2str(i),'.jpg'];
+    if(test_case_idx==3)
+        str = [params.directory '/' params.directory '_00',num2str(i),'.jpg'];
+    else
+        str = [params.directory '/' params.directory '_0',num2str(i),'.jpg'];
+    end
+    
     img = imread(str);
     
 
