@@ -10,7 +10,7 @@ pt_ind = 1:pt_num;
 [row_num, col_num] = size(I);
 I = double(I);
 
-threshold = 0.5; % Return threshold
+threshold = 0.1; % Return threshold
 for i = pt_ind
     prog = i*1.0/length(pt_ind)
     c_old = c;
@@ -30,6 +30,7 @@ for i = pt_ind
         c(new_ind,:) = int16( (B(new_ind,:) - A(new_ind,old_ind)*...
             double(c(old_ind,:))) / A(new_ind, new_ind) );
     end
+     %displaySnakeOnImage(c(:,1),c(:,2),I);
     % Return once iteration converges 
     if norm(double(c - c_old)) < threshold
         return;
