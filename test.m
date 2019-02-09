@@ -81,7 +81,7 @@ for i = params.startFrame:params.endFrame
     tx = curv(:,1);
     ty = curv(:,2);
     
-    figure(1)
+    %figure(1)
     visualizeSnake(tx,ty,origin,BW);
     %saveas(gcf,['outputs\lt4_' num2str(i) '.png']);
     

@@ -5,7 +5,7 @@ imshow(img,[]);
 hold on
 
 K = convhull(double(tx),double(ty));
-plot(tx(K),ty(K),'b-',tx,ty,'b*','MarkerSize',15)
+plot(tx(K),ty(K),'b-',tx,ty,'b.','MarkerSize',5)
 %plot(tx(K),ty(K),'b-')
 
 %?????????, don't try this....

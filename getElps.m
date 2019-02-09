@@ -1,13 +1,17 @@
 function pts = getElps(BW,pt_num,params)
 points = [];
-for i = 1:size(BW,1)
-    for j = 1:size(BW,2)
-        if(BW(i,j)>0)
-            points=[points;[j,i]];
-        end
-    end
-end
+% for i = 1:size(BW,1)
+%     for j = 1:size(BW,2)
+%         if(BW(i,j)>0)
+%             points=[points;[j,i]];
+%         end
+%     end
+% end
 
+
+
+[xx, yy] = find(BW > 0);
+points = [yy,xx];
 
 ellipse_t = fit_ellipse( points(:,1),points(:,2) );
 
