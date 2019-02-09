@@ -1,10 +1,10 @@
 %close all;
 clear all;
 
-alpha = 14; % (3)
+alpha = 3; % (3)
 beta = 2; % (3)
-omega = 25;
-eta = 20;
+omega = 12;
+eta = 10;
 
 load('template2.mat');
 i = 1;
@@ -51,7 +51,7 @@ A0 = A * double(curv); % Initial coefficient of templete
 
 a = 1;
 
-for i = 1302:1910
+parfor i = 1302:1910
     str = ['liptracking2/liptracking2_0',num2str(i),'.jpg'];
     img = imread(str);
     [BW,maskedRGBImage] = createMask(img);
@@ -82,8 +82,8 @@ for i = 1302:1910
     origin = img;
     img = rgb2gray(img);
     img = conv2(double(img),gs);
-    curv = minEnergy(img, A, A0, curv, omega, eta);
-    %curv = minEnergy(i, A, A0, curv, omega, eta);
+    %curv = mySnake(img, A, A0, curv, omega, eta);
+    curv = mySnake_mex(img, A, A0, curv, omega, eta);
     
     tx = curv(:,1);
     ty = curv(:,2);
