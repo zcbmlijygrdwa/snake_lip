@@ -1,12 +1,8 @@
 %close all;
 clear all;
 
-param.alpha = 3; % (3)
-param.beta = 2; % (3)
-param.omega = 12;
-param.eta = 10;
-
-
+params = paramManager(1);
+%1 for liptracking2
 
 load('template2.mat');
 i = 1;
@@ -27,22 +23,18 @@ img = imread('test.jpg');
 
 BW = conv2(double(BW),gs);
 BW(BW<0.85) = 0;
-curv = getElps(BW,pt_num);
+curv = getElps(BW,pt_num,params);
 
 origin = img;
 img = rgb2gray(img);
 img = conv2(double(img),gs);
 % Prepare coefficient matrices A
 one_row = zeros(1, pt_num);
-one_row(1:5) = 2*(param.alpha * [0, -1, 2, -1, 0] + param.beta * [1, -4, 6, -4, 1]);
+one_row(1:5) = 2*(params.alpha * [0, -1, 2, -1, 0] + params.beta * [1, -4, 6, -4, 1]);
 A = [];
 for i = 1:pt_num
     A = [A; circshift(one_row, [0, i-3])];
 end
-
-A0 = A * double(curv); % Initial coefficient of templete
-
-a = 1;
 
 for i = 1302:1910
     str = ['liptracking2/liptracking2_0',num2str(i),'.jpg'];
@@ -50,8 +42,8 @@ for i = 1302:1910
     [BW,maskedRGBImage] = createMask(img);
 
     BW = conv2(double(BW),gs);
-    BW(BW<0.75) = 0;
-    curv = getElps(BW,pt_num);
+    BW(BW<params.intensity_thres) = 0;
+    curv = getElps(BW,pt_num,params);
     
     tx = curv(:,1);
     ty = curv(:,2);
@@ -61,7 +53,7 @@ for i = 1302:1910
     img = rgb2gray(img);
     img = conv2(double(img),gs);
     A0 = A * double(curv); % Initial coefficient of templete
-    curv = mySnake(img, A, A0, param,curv);
+    curv = mySnake(img, A, A0, params,curv);
     %curv = mySnake_mex(img, A, A0, curv, omega, eta);
     
     tx = curv(:,1);

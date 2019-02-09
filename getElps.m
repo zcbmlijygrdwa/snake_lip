@@ -1,4 +1,4 @@
-function pts = getElps(BW,pt_num)
+function pts = getElps(BW,pt_num,params)
 points = [];
 for i = 1:size(BW,1)
     for j = 1:size(BW,2)
@@ -11,15 +11,15 @@ end
 
 ellipse_t = fit_ellipse( points(:,1),points(:,2) );
 
-rot = rotmat2d(-ellipse_t.phi)
+rot = rotmat2d(-ellipse_t.phi);
 
 %expand
-kk = 2;
-ellipse_t.long_axis = ellipse_t.long_axis*kk*0.6;
+kk = params.elpk;
+l_clps = params.l_clps;
+ellipse_t.long_axis = ellipse_t.long_axis*kk*l_clps;
 ellipse_t.short_axis = ellipse_t.short_axis*kk;
-ellipse_t.a = ellipse_t.a*kk*0.6;
+ellipse_t.a = ellipse_t.a*kk*l_clps;
 ellipse_t.b = ellipse_t.b*kk;
-
 
 pts = [];
 sampleSize = (ellipse_t.long_axis*2)/(pt_num);
