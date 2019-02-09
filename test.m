@@ -15,7 +15,7 @@ i = 1;
 curv = int16([xx,yy]);
 pt_num = size(curv,1);
 
-pt_num = 50;
+pt_num = 20;
 
 gs = my_gaussian_kernel(10,50);
 
@@ -76,8 +76,7 @@ for i = params.startFrame:params.endFrame
     img = conv2(double(img),gs);
     A0 = A * double(curv); % Initial coefficient of templete
     curv = mySnake(img, A, A0, params,curv);
-    %curv = mySnake_mex(img, A, A0, curv, omega, eta);
-    
+
     tx = curv(:,1);
     ty = curv(:,2);
     

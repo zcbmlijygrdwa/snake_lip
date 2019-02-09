@@ -8,7 +8,7 @@ point_indexs = 1:size(curve_locs, 1);
 %set threshold to end iteration
 threshold = 0.1;
 for i = point_indexs
-    prog = i*1.0/length(point_indexs)
+    %prog = i*1.0/length(point_indexs)
     c_old = curve_locs;
     
     for proposed_index = point_indexs
