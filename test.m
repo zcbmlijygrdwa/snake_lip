@@ -10,6 +10,37 @@ i = 1;
 img = imread('test.jpg');
 img = rgb2gray(img);
 
+curv = int16([xx,yy]);
+
+pt_num = size(curv,1);
+
+alpha = 3; % (3)
+beta = 3; % (3)
+% omega = 16; % (16
+
+% eta = 10; % (10)
+% switch root
+%     case 'liptracking2'
+omega = 12;
+eta = 8;
+%     case 'liptracking3'
+%         omega = 17;
+%         eta = 10;
+%     case 'liptracking4'
+%         omega = 20;
+%         eta = 12;
+% end
+
+% Prepare coefficient matrices A
+one_row = zeros(1, pt_num);
+one_row(1:5) = 2*(alpha * [0, -1, 2, -1, 0] + beta * [1, -4, 6, -4, 1]);
+A = [];
+for i = 1:pt_num
+    A = [A; circshift(one_row, [0, i-3])];
+end
+
+
+A0 = A * double(curv); % Initial coefficient of templete
 
 
 %displaySnakeOnImage(xx,yy,img)
@@ -20,25 +51,57 @@ img = rgb2gray(img);
 
 a = 1;
 
-figure()
 for i = 1302:1600
     str = ['liptracking2/liptracking2_0',num2str(i),'.jpg'];
     img = imread(str);
     [BW,maskedRGBImage] = createMask(img);
     
     
-    subplot(1,2,1)
-    imshow(maskedRGBImage)
-    subplot(1,2,2)
-    imshow(img)
+    %     subplot(1,2,1)
+    %     imshow(maskedRGBImage)
+    %     subplot(1,2,2)
+    %     imshow(img)
     
-%     tt = ones(720,1280,3)*0.22;
-%     tt(BW) = RGB(BW);
+    %     tt = ones(720,1280,3)*0.22;
+    %     tt(BW) = RGB(BW);
     
     
     %img = rgb2gray(img);
-    [tx,ty]=snake(double(~BW),xx,yy,3,0.0001);
+    %BW = rgb2gray(img);
+    %[tx,ty]=snake(double(~BW),xx,yy,3,1);
+    
+    %
+
+    curv = minEnergy(double(~BW), A, A0, curv, omega, eta);
+
+    tx = curv(:,1);
+    ty = curv(:,2);
+    
+    
+    
+    figure(1)
+    
+    %     plot(yy);
+    %     hold on;
+    
     displaySnakeOnImage(tx,ty,img);
+    saveas(gcf,['outputs/output_' num2str(i) '.png']);
+    
+    %     yy = ty;
+    %     xx = tx;
+    
+    %     mean_yy = mean(yy);
+    %     mean_ty = mean(ty);
+    %
+    %     mean_xx = mean(xx);
+    %     mean_tx = mean(tx);
+    %
+    %     diff_x = mean_tx -mean_xx;
+    %     diff_y = mean_ty -mean_yy;
+    %
+    %     xx = xx+diff_x;
+    %     yy = yy+diff_y;
+    
     a = 1;
     pause(0.001)
 end
