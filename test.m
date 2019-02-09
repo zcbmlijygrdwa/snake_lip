@@ -6,6 +6,7 @@ test_case_idx = 3;
 params = paramManager(test_case_idx);
 %1 for liptracking2
 %2 for liptracking3
+%３ for liptracking3
 
 load('template2.mat');
 i = 1;
@@ -19,14 +20,13 @@ pt_num = 50;
 gs = my_gaussian_kernel(10,50);
 
 gs1 = my_gaussian_kernel(5,5);
-    if(test_case_idx==3)
-        img = imread([params.directory '/' params.directory '_00',num2str(params.startFrame),'.jpg']);
-
-    else
-        img = imread([params.directory '/' params.directory '_0',num2str(params.startFrame),'.jpg']);
-
-    end
-
+if(test_case_idx==3)
+    img = imread([params.directory '/' params.directory '_00',num2str(params.startFrame),'.jpg']);
+    
+else
+    img = imread([params.directory '/' params.directory '_0',num2str(params.startFrame),'.jpg']);
+    
+end
 
 
 [BW,maskedRGBImage] = createMask(img,params);
@@ -36,7 +36,8 @@ gs1 = my_gaussian_kernel(5,5);
 
 BW = conv2(double(BW),gs);
 BW(BW<0.85) = 0;
-imshow(maskedRGBImage)
+% imshow(maskedRGBImage)
+% return
 curv = getElps(BW,pt_num,params);
 
 origin = img;
@@ -59,9 +60,9 @@ for i = params.startFrame:params.endFrame
     
     img = imread(str);
     
-
+    
     [BW,maskedRGBImage] = createMask(img,params);
-
+    
     BW = conv2(double(BW),gs);
     BW(BW<params.intensity_thres) = 0;
     curv = getElps(BW,pt_num,params);
@@ -81,9 +82,9 @@ for i = params.startFrame:params.endFrame
     ty = curv(:,2);
     
     figure(1)
-    visualizeSnake(tx,ty,origin);
-%    saveas(gcf,['outputs\lt2_' num2str(i) '.png']);
-
+    visualizeSnake(tx,ty,origin,BW);
+    %saveas(gcf,['outputs\lt4_' num2str(i) '.png']);
+    
     a = 1;
     pause(0.001)
 end
