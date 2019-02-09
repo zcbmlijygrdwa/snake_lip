@@ -23,7 +23,7 @@ switch case_index
         params.alpha = 3; % (3)
         params.beta = 2; % (3)
         params.omega = 12;
-        params.eta = 10;
+        params.eta = 30;
         params.elpk = 1.6;
         params.l_clps = 0.9;
         params.c.min = [0.9528,0.36,0.67];

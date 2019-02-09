@@ -67,7 +67,7 @@ for i = params.startFrame:params.endFrame
     ty = curv(:,2);
     
     figure(1)
-    displaySnakeOnImage(tx,ty,origin);
+    visualizeSnake(tx,ty,origin);
 %    saveas(gcf,['outputs\lt2_' num2str(i) '.png']);
 
     a = 1;
