@@ -15,9 +15,9 @@ pt_num = size(curv,1);
 
 pt_num = 50;
 
-gs = fspecial('gaussian',10,50);
+gs = my_gaussian_kernel(10,50);
 
-gs1 = fspecial('gaussian',5,5);
+gs1 = my_gaussian_kernel(5,5);
 
 img = imread('test.jpg');
 [BW,maskedRGBImage] = createMask(img);
@@ -82,8 +82,8 @@ parfor i = 1302:1910
     origin = img;
     img = rgb2gray(img);
     img = conv2(double(img),gs);
-    %curv = mySnake(img, A, A0, curv, omega, eta);
-    curv = mySnake_mex(img, A, A0, curv, omega, eta);
+    curv = mySnake(img, A, A0, curv, omega, eta);
+    %curv = mySnake_mex(img, A, A0, curv, omega, eta);
     
     tx = curv(:,1);
     ty = curv(:,2);
