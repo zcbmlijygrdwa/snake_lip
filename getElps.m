@@ -40,7 +40,7 @@ if(length(pts)==0)
     return
 end
 
-if(abs(ellipse_t.phi)>0.4)
+if(abs(ellipse_t.phi)>0.2)
     pts = [];
     return
 end
