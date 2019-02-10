@@ -90,6 +90,8 @@ displaySnakeOnImage.m
 my_gaussian_kernel.m  
 test.m
 
+#### Videos of results are also attached as AVI files.
+
 # 4 Usage
 A demo program shows an example of using this project. Run:
 
