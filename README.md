@@ -1,4 +1,4 @@
-# Marr-Hildreth Edge Detection - implementation in Matlab
+#  Lip Tracking with Snake- implementation in Matlab
 
 
 Author: Zhenyu Yang
