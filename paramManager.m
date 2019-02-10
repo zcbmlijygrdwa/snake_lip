@@ -42,7 +42,7 @@ switch case_index
         params.eta = 30;
         params.elpk = 1.6;
         params.l_clps = 0.9;
-        params.c.min = [0.8528,0.26,0.67];
+        params.c.min = [0.8528,0.35,0.6];
         params.c.max = [0.9967,0.62,0.992];
         params.intensity_thres = 0.75;
         
