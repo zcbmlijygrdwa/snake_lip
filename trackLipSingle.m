@@ -1,27 +1,48 @@
-%close all;
-clear all;
+function  trackLipSingle(directory, root, startFrame, endFrame, lip_template)
 
+% I have to implement root and lip_template argument to fullfill the
+% homework specification. Not quite a smart way as user may enter wrong
+% inputs. Better to let program decide which data to load.
+
+
+root = ''; %sorry, just in case user doesn't know how to enter filename...
+lip_template = ''; % program will chose template for you... see below
+
+if(strcmp( directory,'liptracking2'))
+test_case_idx = 1;
+elseif(strcmp( directory,'liptracking3'))
+test_case_idx = 2;
+elseif(strcmp( directory,'liptracking4'))
 test_case_idx = 3;
+else
+    disp('Wrong directory input..........');
+    output = [];
+    return;
+end
 
 params = paramManager(test_case_idx);
 %1 for liptracking2
 %2 for liptracking3
 %３ for liptracking3
 
-load('template2.mat');
-i = 1;
-%[xx,yy] = snakeinterp(x(i,:),y(i,:),2,0.5);
-
-% curv = int16([xx,yy]);
-% pt_num = size(curv,1);
+if(test_case_idx==1)
+    load('template2.mat');
+elseif(test_case_idx==2)
+    load('template3.mat');
+else
+    load('template4.mat');
+end
 
 pt_num = 20;
 
 gs = my_gaussian_kernel(10,50);
 
 gs1 = my_gaussian_kernel(5,5);
+
+
+
 if(test_case_idx==3)
-    img = imread([params.directory '/' params.directory '_00',num2str(params.startFrame),'.jpg']);
+    img = imread([directory '/' directory '_00',num2str(params.startFrame),'.jpg']);
     
 else
     img = imread([params.directory '/' params.directory '_0',num2str(params.startFrame),'.jpg']);
@@ -51,7 +72,7 @@ for i = 1:pt_num
     A = [A; circshift(one_row, [0, i-3])];
 end
 
-for i = params.startFrame:params.endFrame
+for i = startFrame:endFrame
     if(test_case_idx==3)
         str = [params.directory '/' params.directory '_00',num2str(i),'.jpg'];
     else
@@ -69,7 +90,6 @@ for i = params.startFrame:params.endFrame
     
     tx = curv(:,1);
     ty = curv(:,2);
-    %displaySnakeOnImage(tx,ty,BW);
     
     origin = img;
     img = rgb2gray(img);
@@ -80,10 +100,9 @@ for i = params.startFrame:params.endFrame
     tx = curv(:,1);
     ty = curv(:,2);
     
-    %figure(1)
+    figure(1)
     visualizeSnake(tx,ty,origin,BW);
-    %saveas(gcf,['outputs\lt4_' num2str(i) '.png']);
-    
-    a = 1;
+    saveas(gcf,['outputs\case_' num2str(test_case_idx+1) '\lt_' num2str(test_case_idx+1) '_' num2str(i) '.png']);
+ 
     pause(0.001)
 end

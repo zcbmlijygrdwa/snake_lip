@@ -1,19 +1,17 @@
-%close all;
-clear all;
-
-test_case_idx = 3;
+function trackLip(test_case_idx,ifSave)
 
 params = paramManager(test_case_idx);
 %1 for liptracking2
 %2 for liptracking3
 %３ for liptracking3
 
-load('template2.mat');
-i = 1;
-%[xx,yy] = snakeinterp(x(i,:),y(i,:),2,0.5);
-
-% curv = int16([xx,yy]);
-% pt_num = size(curv,1);
+if(test_case_idx==1)
+    load('template2.mat');
+elseif(test_case_idx==2)
+    load('template3.mat');
+else
+    load('template4.mat');
+end
 
 pt_num = 20;
 
@@ -69,7 +67,6 @@ for i = params.startFrame:params.endFrame
     
     tx = curv(:,1);
     ty = curv(:,2);
-    %displaySnakeOnImage(tx,ty,BW);
     
     origin = img;
     img = rgb2gray(img);
@@ -80,10 +77,10 @@ for i = params.startFrame:params.endFrame
     tx = curv(:,1);
     ty = curv(:,2);
     
-    %figure(1)
+    figure(1)
     visualizeSnake(tx,ty,origin,BW);
-    %saveas(gcf,['outputs\lt4_' num2str(i) '.png']);
-    
-    a = 1;
+    if(ifSave)
+    saveas(gcf,['outputs\case_' num2str(test_case_idx+1) '\lt_' num2str(test_case_idx+1) '_' num2str(i) '.png']);
+    end
     pause(0.001)
 end
