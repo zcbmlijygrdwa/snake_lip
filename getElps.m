@@ -36,6 +36,15 @@ for x = -0.5*ellipse_t.long_axis:sampleSize:0
     pts = [pts;[-x,-y]];
 end
 
+if(length(pts)==0)
+    return
+end
+
+if(abs(ellipse_t.phi)>0.4)
+    pts = [];
+    return
+end
+
 pts = pts(1:pt_num,:);
 
 pts = rot*pts';

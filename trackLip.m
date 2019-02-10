@@ -33,7 +33,7 @@ end
 
 
 BW = conv2(double(BW),gs);
-BW(BW<0.85) = 0;
+BW(BW<params.intensity_thres) = 0;
 % imshow(maskedRGBImage)
 % return
 curv = getElps(BW,pt_num,params);
@@ -55,7 +55,7 @@ for i = params.startFrame:params.endFrame
     else
         str = [params.directory '/' params.directory '_0',num2str(i),'.jpg'];
     end
-    
+    disp(str) 
     img = imread(str);
     
     
@@ -64,7 +64,9 @@ for i = params.startFrame:params.endFrame
     BW = conv2(double(BW),gs);
     BW(BW<params.intensity_thres) = 0;
     curv = getElps(BW,pt_num,params);
-    
+    if(length(curv)==0)
+       continue; 
+    end
     tx = curv(:,1);
     ty = curv(:,2);
     
