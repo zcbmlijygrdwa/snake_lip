@@ -75,27 +75,21 @@ Matlab is the only software needed to be installed to run this project.
 *No Computer Vision Toolbox is required.
 
 # 3 Project files
-ccess_elem.m
 
-my_conv2.m
-
-my_gaussian_kernel.m
-
-my_log_kernel.m
-
-thresholdingImage.m
-
-zero_crossing_evaluator.m
-
-demo.m
-
-my_edge_detector.m
-
-my_laplacian_kernel.m
-
-my_zero_crossing_detector.m
-
-visulization.m
+createMask.m           
+fit_ellipse.m         
+mySnake.m       
+trackLip.m
+demo.m                 
+getElps.m             
+paramManager.m  
+trackLipSingle.m
+demo_save.m            
+rotmat2d.m      
+visualizeSnake.m
+displaySnakeOnImage.m  
+my_gaussian_kernel.m  
+test.m
 
 # 4 Usage
 A demo program shows an example of using this project. Run:
