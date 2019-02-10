@@ -11,23 +11,22 @@ Active contour model, also called snakes, is a framework in computer vision intr
 A snake is an energy minimizing, deformable spline influenced by constraint and image forces that pull it towards object contours and internal forces that resist deformation. Snakes may be understood as a special case of the general technique of matching a deformable model to an image by means of energy minimization. In two dimensions, the active shape model represents a discrete version of this approach, taking advantage of the point distribution model to restrict the shape range to an explicit domain learnt from a training set.
 
 
-
 # About this project
 
-In this project, Snake alsorithm was implemented with Matlab. Lips in videos were tracked by using snake. Color thresholding and ellipse fitting were also adopted to significantly improve the robustness.
+In this project, the Snake algorithm was implemented with Matlab. Lips in videos were tracked by using snake. Color thresholding and ellipse fitting were also adopted to improve the robustness significantly.
 
-#### Lips were tracked in all frames(frome the beginning to the end) in each video. No lost tracking in the three test image sets.
+#### Lips were tracked from the beginning to the end in each video.
 
-This project is  able to track the mouth motion with the following deformation and change
-    a. Talking
-    b. Laughing, fawning and other common expressions
-    c. Slight camera zoom in or out
-    d. Slight rotation and translation of the head
-    e. Slight change in the environmental illumination
+This project can track the mouth motion with the following deformation and change
+a. Talking
+b. Laughing, fawning and other common expressions
+c. Slight camera zoom in or out
+d. Slight rotation and translation of the head
+e. Slight change in the environmental illumination
 
-All functions and scripts were implemented from scratch. Matlab Computer Vision Toolbos is not required.
+All functions and scripts were implemented from scratch. Matlab Computer Vision Toolbox is not required.
 
-demo.m and demo_save.m are two good entry points for this project. trackLipSingle.m is aAnother entry point was made to fullfill the "four arguments" requirement in HW.
+demo.m and demo_save.m are two good entry points for this project. trackLipSingle.m is another entry point was made to fulfill the "four arguments" requirement in HW.
 
 ### References
 * **https://en.wikipedia.org/wiki/Active_contour_model**
@@ -48,7 +47,7 @@ Another demo program shows an example of using this project and save the results
         demo_save
 
 
-The demo program will start and go through all test sets, and generate output into the "outputs" foler. The demo program also show the outputs with imshow() function.
+The demo program will start and go through all test sets, and generate output into the "outputs" folder. The demo program also shows the outputs with the imshow() function.
 
 
 To enter the project as required by HW:
@@ -101,6 +100,5 @@ A demo program shows an example of using this project and save the results. Run:
 
         demo_save
 
-
-The demo program will start and go through all test sets, and generate output into the "outputs" foler. The demo program also show the outputs with imshow() function.
+The demo program will start and go through all test sets, and generate output into the "outputs" folder. The demo program also shows the outputs with the imshow() function.
 
